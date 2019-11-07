@@ -1,0 +1,35 @@
+{
+  "name": "@express-plus/cli",
+  "version": "0.0.2",
+  "description": "Command Line Interface for Express+ REST API framework",
+  "main": "dist/index.js",
+  "bin": {
+    "exp": "dist/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && tsc",
+    "start": "npm run build && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reed-lawrence/express-plus-cli.git"
+  },
+  "author": "Reed Lawrence",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reed-lawrence/express-plus-cli/issues"
+  },
+  "homepage": "https://github.com/reed-lawrence/express-plus-cli#readme",
+  "dependencies": {
+    "@types/node": "^12.12.6",
+    "chalk": "^2.4.2",
+    "commander": "^4.0.0",
+    "figlet": "^1.2.4",
+    "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.2.0",
+    "@types/shelljs": "^0.8.6"
+  }
+}
