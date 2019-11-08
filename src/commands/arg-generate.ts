@@ -42,7 +42,7 @@ export class ArgGenerate {
     fs.writeFileSync(`${targetPath}/${fileName}`, controllerTemplate.split('{{name}}').join(capitalizedName));
 
     console.log(chalk.green(`Created: [controller] ${capitalizedName}Controller at ${targetPath}`));
-    console.log(chalk.blueBright(`  To register this controller, add ${capitalizedName}Controller in conroller[] array for the server instance`));
+    console.log(chalk.blueBright(`  To register this controller, add ${capitalizedName}Controller in controllers[] array for the server instance in main.ts`));
 
     return;
   }

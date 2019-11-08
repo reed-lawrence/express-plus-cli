@@ -1,6 +1,6 @@
 {
   "name": "@express-plus/cli",
-  "version": "0.0.2",
+  "version": "0.0.10",
   "description": "Command Line Interface for Express+ REST API framework",
   "main": "dist/index.js",
   "bin": {

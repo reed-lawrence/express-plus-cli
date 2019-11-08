@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import fs from 'fs';
 import shell from 'shelljs';
 import { Utils } from "../utils";
-import { packageJsonTemplate } from "../code-templates/project/package.json";
+import { packageJsonTemplate } from "../code-templates/project/package.json.js";
 import { gitIgnoreTemplate } from "../code-templates/project/gitignore";
 import { mainTemplate } from '../code-templates/project/main.template';
 import { tsconfigTemplate } from "../code-templates/project/tsconfig.template";
@@ -18,7 +18,7 @@ export interface ICreateOptions {
 export class ArgCreate {
   public static generate(opts: ICreateOptions) {
     console.log(chalk.blueBright(`Scaffolding Express+ project structure`));
-    let targetPath = './';
+    let targetPath = '.';
     if (opts && opts.path) {
       targetPath = opts.path;
     }
@@ -64,10 +64,10 @@ export class ArgCreate {
     ArgGenerate.generate({ controllerName: `${controllersDir}/${defaultControllerName}` });
 
     console.log(chalk.magenta(`Installing NPM Packages (this may take a bit)`));
-    shell.cd(projectRoot).exec('npm install');
+    shell.cd(projectRoot).exec('npm install --save @express-plus/core@latest');
     console.log(chalk.magenta(`NPM packages installed`))
 
-    shell.cd(projectRoot).exec('git init -q').exec('git add .').exec('git commit --message="Created Express+ repo from CLI" --quiet');
+    shell.exec('git init -q').exec('git add .').exec('git commit --message="Created Express+ repo from CLI" --quiet');
     console.log(chalk.green(`Git: local repo initialized`));
 
     console.log(chalk.blueBright(`Express+ project scaffolding successful!`));

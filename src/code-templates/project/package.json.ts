@@ -9,6 +9,5 @@ export const packageJsonTemplate = `
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@express-plus/core": "^0.5.22"
   }
 }`;

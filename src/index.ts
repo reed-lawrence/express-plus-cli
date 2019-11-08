@@ -3,9 +3,10 @@
 import program from 'commander';
 import chalk from 'chalk';
 import figlet from 'figlet';
-import { ArgGenerate } from './arg-types/arg-generate';
-import { ArgCreate } from './arg-types/arg-create';
+import { ArgGenerate } from './commands/arg-generate';
+import { ArgCreate } from './commands/arg-create';
 import { Utils } from './utils';
+import { CliBuild } from './commands/cli-build';
 const packageJson = require('../package.json');
 
 
@@ -73,6 +74,13 @@ program.command('generate [Type] [Name]')
     return ArgGenerate.generate({ controllerName: name });
 
   });
+
+program.command('build')
+  .description('Build and compile a project to native javascript to run on a node instance')
+  .option('--prod', 'Target build files for production')
+  .action(args => {
+    return CliBuild({ prod: args.prod, projectRoot: process.cwd() })
+  })
 
 program.parse(process.argv);
 
