@@ -4,7 +4,8 @@ export const packageJsonTemplate = `
   "version": "1.0.0",
   "description": "Express+ REST API",
   "scripts": { 
-    "serve": "tsc && PORT=8000 node dist/main.js"
+    "build": "exp build",
+    "debug": "exp serve"
   },
   "author": "",
   "license": "MIT",

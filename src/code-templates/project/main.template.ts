@@ -1,10 +1,11 @@
-export const mainTemplate = `import { environment } from './environments/environment';
-import { Server } from '@express-plus/core/server';
-import { {{controller}}Controller } from './controllers/{{fileName}}.controller';
+export const mainTemplate = `import { ApiServer } from '@express-plus/core/api-server';
 
-const server = new Server(environment, {
+import { ValuesController } from './controllers/values.controller';
+import { environment } from './environments/environment';
+
+const server = new ApiServer(environment, {
   controllers: [
-    {{controller}}Controller
+    ValuesController
   ]
 });
 

@@ -1,5 +1,7 @@
 export const environmentTemplate = `import { IServerEnvironment } from "@express-plus/core/server-environment";
+import { LoggingLevel } from "@express-plus/core/api-server";
 
 export const environment: IServerEnvironment = {
-  debug: {{debug}}
+  debug: true,
+  logging: LoggingLevel.verbose
 }`;

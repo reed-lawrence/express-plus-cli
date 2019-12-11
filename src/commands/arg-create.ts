@@ -9,6 +9,9 @@ import { mainTemplate } from '../code-templates/project/main.template';
 import { tsconfigTemplate } from "../code-templates/project/tsconfig.template";
 import { ArgGenerate } from "./arg-generate";
 import { environmentTemplate } from "../code-templates/project/environment.template";
+import { environmentTemplateProd } from '../code-templates/project/environment.prod.template';
+import { launchJson } from '../code-templates/project/launch-json.template';
+import { tasksJson } from '../code-templates/project/tasks-json.template';
 
 export interface ICreateOptions {
   path?: string;
@@ -33,6 +36,15 @@ export class ArgCreate {
       console.log('Target path to execute', targetPath);
     }
 
+    const vscodeDir = `${projectRoot}/.vscode`;
+    fs.mkdirSync(vscodeDir);
+    console.log(chalk.green(`Created directory: .vscode`));
+
+    fs.writeFileSync(`${vscodeDir}/launch.json`, launchJson.split('{{workspaceFolder}}').join('${workspaceFolder}'));
+    console.log(chalk.green(`Created: launch.json`));
+
+    fs.writeFileSync(`${vscodeDir}/tasks.json`, tasksJson);
+
     const packageJsonPath = `${projectRoot}/package.json`;
     fs.writeFileSync(packageJsonPath, packageJsonTemplate.replace('{{projectName}}', opts.projectName));
     console.log(chalk.green(`Created: package.json`));
@@ -48,8 +60,8 @@ export class ArgCreate {
     fs.mkdirSync(environmentsDir, { recursive: true });
     console.log(chalk.green(`Created directory: src/environments`));
 
-    fs.writeFileSync(`${environmentsDir}/environment.ts`, environmentTemplate.split('{{debug}}').join('true'));
-    fs.writeFileSync(`${environmentsDir}/environment.prod.ts`, environmentTemplate.split('{{debug}}').join('false'));
+    fs.writeFileSync(`${environmentsDir}/environment.ts`, environmentTemplate);
+    fs.writeFileSync(`${environmentsDir}/environment.prod.ts`, environmentTemplateProd);
     console.log(chalk.green(`Created: environment.ts && environment.prod.ts`));
 
 
@@ -64,7 +76,7 @@ export class ArgCreate {
     ArgGenerate.generate({ controllerName: `${controllersDir}/${defaultControllerName}` });
 
     console.log(chalk.magenta(`Installing NPM Packages (this may take a bit)`));
-    shell.cd(projectRoot).exec('npm install --save @express-plus/core@latest');
+    shell.cd(projectRoot).exec('npm install --save @express-plus/core@latest typescript');
     console.log(chalk.magenta(`NPM packages installed`))
 
     shell.exec('git init -q').exec('git add .').exec('git commit --message="Created Express+ repo from CLI" --quiet');

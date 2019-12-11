@@ -7,18 +7,11 @@ export interface ICliBuildOptions {
   prod?: boolean;
 }
 
-export function CliBuild(opts: ICliBuildOptions) {
+export function CLIBuild(opts: ICliBuildOptions) {
   console.log(chalk.blueBright('Building...'));
 
-  const result = shell.exec('npm list depth -g typescript', { silent: true });
-  if (result.stdout.indexOf('(empty)') !== -1) {
-    console.log(chalk.red('ERROR: @express-plus/cli requires typescript to be installed globally.'));
-    console.log(chalk.red('   run `npm install -g typescript` to fix this error'));
-    return;
-  }
-
   fs.rmdirSync(`${opts.projectRoot}/dist`, { recursive: true });
-  shell.cd(opts.projectRoot).exec('tsc');
+  shell.cd(opts.projectRoot).exec('npx tsc');
 
   if (opts.prod) {
     const environmentDir = `${opts.projectRoot}/dist/environments/`;

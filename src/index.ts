@@ -5,8 +5,8 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import { ArgGenerate } from './commands/arg-generate';
 import { ArgCreate } from './commands/arg-create';
-import { Utils } from './utils';
-import { CliBuild } from './commands/cli-build';
+import { CLIBuild } from './commands/cli-build';
+import { CLIServe } from './commands/cli-serve';
 const packageJson = require('../package.json');
 
 
@@ -79,8 +79,15 @@ program.command('build')
   .description('Build and compile a project to native javascript to run on a node instance')
   .option('--prod', 'Target build files for production')
   .action(args => {
-    return CliBuild({ prod: args.prod, projectRoot: process.cwd() })
-  })
+    return CLIBuild({ prod: args.prod, projectRoot: process.cwd() })
+  });
+
+program.command('serve')
+  .description('Build, compile, and serve a project')
+  .option('--port <port>', 'Port to host on, 8000 by default')
+  .action(args => {
+    return CLIServe({ prod: false, projectRoot: process.cwd(), port: args.port });
+  });
 
 program.parse(process.argv);
 
